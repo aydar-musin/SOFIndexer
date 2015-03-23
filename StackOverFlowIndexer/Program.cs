@@ -33,8 +33,10 @@ namespace StackOverFlowIndexer
                             HtmlDocument doc = new HtmlDocument();
                             doc.LoadHtml(text);
 
+                            var header = doc.GetElementbyId("question-header");
+
                             var el=doc.GetElementbyId("question").Element("table").Element("tr").Elements("td").ToArray()[1];
-                            string result = el.Element("div").Elements("div").ToArray()[0].InnerText + "\n" + el.Element("div").Elements("div").ToArray()[1].InnerText;
+                            string result = header.InnerText.Trim() + "\n" + el.Element("div").Elements("div").ToArray()[0].InnerText + "\n" + el.Element("div").Elements("div").ToArray()[1].InnerText;
 
                             WriteFile(result,number);
 
