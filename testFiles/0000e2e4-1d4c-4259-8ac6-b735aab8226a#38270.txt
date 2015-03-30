@@ -1,0 +1,8 @@
+IllegalArgumentException or NullPointerException for a null parameter?
+
+
+        I have a simple setter method for a property and null is not appropriate for this particular property. I have always been torn in this situation: should I throw an IllegalArgumentException, or a NullPointerException? From the javadocs, both seem appropriate. Is there some kind of an understood standard?  Or is this just one of those things that you should do whatever you prefer and both are really correct?
+
+    
+
+        java exception null nullpointerexception illegalargumentexception

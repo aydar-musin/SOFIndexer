@@ -1,0 +1,16 @@
+How do I implement &ldquo;create&rdquo; controller action for a view with many fields in ASP.NET MVC
+
+
+        I'm new to ASP.NET MVC so this may be a stupid question.
+
+I have an account object that has many parameters.  I've figured out a strategy to break this down into a "wizard"-like interface that will walk a user through collecting the required fields to create the initial business objects. It will then step through pages to collect other, optional, parameters.  This way the user isn't faced with a single page on which they have to enter 30 things (I'm probably exaggerating the number, but you get the idea).
+
+Still, the first page is going to have 10-12 items that the user needs to fill out before I can fill in all the required fields on the 2-3 business objects that accompany a successful registration.  Basically, a new user needs to both get an account AND register for an event at the same time, thus the number of items.
+
+In ASP.NET MVC it appears that all of my form parameters map onto method parameters in the controller method.  Knowing that methods with lots of parameters are considered a code smell that ought to be refactored out, I'm wondering if there is a different way to accomplish this or if I'm stuck with a controller method that has a one-to-one mapping between form parameters and method parameters.
+
+Is there a good known pattern that I've missed in my Google searches to solve this problem?
+
+    
+
+        asp.net-mvc parameters controller

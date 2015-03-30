@@ -1,0 +1,16 @@
+How to convert standard IP address format string to hex and long?
+
+
+        Does anyone know how to get the IP address in decimal or hex from standard IP address format string ("xxx.xxx.xxx.xxx")?
+
+I've tried to use the inet_addr() function but didn't get the right result.
+
+I tested it on "84.52.184.224"
+
+the function returned 3770168404 which is not correct (the correct result is 1412741344).
+
+Thanks!
+
+    
+
+        c++ format ip-address

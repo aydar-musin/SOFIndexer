@@ -1,0 +1,10 @@
+Is there a free webservice available for song and album information? [closed]
+
+
+        I'd like to write a program to clean up my music collection and it would be nice to be able to query a webservice for song and album information. 
+
+I'm not really thinking of a cddb/freedb type of situation where you hand them a hash based on the number of songs and the lengths, etc. I'm really thinking more of "hey, for this album from this artist what are the song titles?" - something like that. 
+
+    
+
+        web-services mp3

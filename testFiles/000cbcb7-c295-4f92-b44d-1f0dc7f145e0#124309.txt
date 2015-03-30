@@ -1,0 +1,8 @@
+Mysql results in PHP - arrays or objects?
+
+
+        Been using PHP/MySQL for a little while now, and I'm wondering if there are any specific advantages (performance or otherwise) to using mysql_fetch_object() vs mysql_fetch_assoc() / mysql_fetch_array().
+
+    
+
+        php mysql arrays object

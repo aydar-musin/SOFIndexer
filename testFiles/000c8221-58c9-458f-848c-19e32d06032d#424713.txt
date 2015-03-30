@@ -1,0 +1,28 @@
+Model - View - ViewModel &amp; WCF - is WCF the model?
+
+
+        I'm just learning the Model / View / ViewModel pattern and it's variations (DataModel / View / ViewModel, or Model / View / Presenter).
+
+What I wonder is: if I use this pattern with a WCF service, is the service the Model (DataModel), or do I need a separate Model to encapsulate the WCF service layer??
+
+When I use WCF as DataModel my ViewModel is not testable without mocking the whole WCF service, since the calls to WCF need to manage the connection. The calls in this ViewModel look like this:
+
+List&lt;Sam.Alyza.WcfInterface.Website&gt; rc = null;
+Service&lt;Sam.Alyza.WcfInterface.IServiceWebsites&gt;.Use(alyzaSvc =&gt;
+{
+  rc = new List&lt;Sam.Alyza.WcfInterface.Website&gt;(alyzaSvc.GetSites());
+});
+
+
+To get my ViewModel testable I tried adding a separate DataModel to abstract WCF connection away. After this the ViewModel was testable, the calls looked like this:
+
+List&lt;Sam.Alyza.WcfInterface.Website&gt; rc = new List&lt;Sam.Alyza.WcfInterface.Website&gt;(_datamodel.GetSites());
+
+
+Problem: most of the code that would need to be tested now had moved into the DataModel, which, again, needed WCF to be tested. What remained in the ViewModel was a thin shell, which can be tested. But since the main code moved into the DataModel, so testing the ViewModel was quite useless.
+
+So to me it seems adding a separate DataModel layer to a View / ViewModel application using WCF does add a lot of work, but the testability does not get any better.
+
+    
+
+        wcf mvvm stress-testing

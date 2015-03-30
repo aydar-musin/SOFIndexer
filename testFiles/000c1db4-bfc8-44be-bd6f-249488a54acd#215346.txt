@@ -1,0 +1,14 @@
+Storing Personal Information Dos and Don&#39;ts [closed]
+
+
+        I run a small php/mysql website for a camera club where users can upload photos. I have recently started storing email addresses for doing password resets. 
+
+My question is what is the best practice for dealing with users' personal information: are there any laws/legislation regarding what I can do with personal information? Do I need to display my policy for dealing with personal information?
+
+Any further information regarding this subject is greatly received.
+
+Thanks
+
+    
+
+        security

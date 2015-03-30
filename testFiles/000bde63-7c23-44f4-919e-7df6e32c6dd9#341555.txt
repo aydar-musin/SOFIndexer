@@ -1,0 +1,79 @@
+basic php form help (2)
+
+
+        This is an extension of a question I had yesterday.
+
+I am trying to make a little php calculator that will show how much people can save on their phone bills if they switch to VoIP, and how much they can save with each service.
+
+I have a form that will spit out the right amount for a monthly bill here:
+
+http://www.nextadvisor.com/voip_services/voip_calculator.php?monthlybill=50&amp;Submit=Submit
+
+But now I need to integrate that with some other data and put in a table.  The prices for each of the different services are in another file called "values.php".  The values are:
+
+ $offer1calcsavings="24.99";
+ $offer2calcsavings="20.00";
+ $offer3calcsavings="21.95";
+ $offer4calcsavings="23.95";
+ $offer5calcsavings="19.95";
+ $offer6calcsavings="23.97";
+ $offer7calcsavings="24.99";
+
+
+I want each of the seven rows of the table to have one of the offercalcsavings values subtracted from the monthlybill value.  
+
+The php code currently looks like this:
+
+  &lt;?php $monthlybill = $_GET['monthlybill']; ?&gt;
+
+ Your monthly bill was &lt;?php echo "$monthlybill"; ?&gt;
+
+   &lt;?php
+ $monthybill="monthlybill";
+   $re=1;
+   $offer ='offer'.$re.'name';
+ $offername= ${$offer};
+   while($offername!=""){
+     $offerlo ='offer'.$re.'logo';
+     $offerlogo=${$offerlo};
+    $offerli ='offer'.$re.'link';
+    $offerlink=${$offerli};
+$offeran ='offer'.$re.'anchor';
+$offeranchor=${$offeran};
+$offerst ='offer'.$re.'star1';
+$offerstar=${$offerst};
+$offerbot='offer'.$re.'bottomline';
+$offerbottomline=${$offerbot};
+$offerca ='offer'.$re.'calcsavings';
+$offercalcsavings=${$offerca};
+
+echo '&lt;tr &gt;
+     &lt;td &gt;
+ &lt;a href="'.$offerlink.'" target="blank"&gt;
+ &lt;img src="http://www.nextadvisor.com'.$offerlogo.'" alt="'.$offername.'" /&gt;
+ &lt;/a&gt;
+ &lt;/td&gt;
+&lt;td &gt;&lt;span class="rating_text"&gt;Rating:&lt;/span&gt;
+ &lt;span class="star_rating1"&gt;
+ &lt;img src="http://www.nextadvisor.com'.$offerstar.'" alt="" /&gt;
+ &lt;/span&gt;&lt;br /&gt;
+  &lt;div style="margin-top:5px; color:#0000FF;"&gt;
+ &lt;a href="'.$offerlink.'" target="blank"&gt;Go to Site&lt;/a&gt;
+ &lt;span style="margin:0px 7px 0px 7px;"&gt;|&lt;/span&gt;
+ &lt;a href="'.$offeranchor.'"&gt;Review&lt;/a&gt;
+ &lt;/div&gt; &lt;/td&gt;
+&lt;td &gt;'.$offercalcsavings.'&lt;/td&gt;
+
+
+   &lt;/tr&gt;';
+   $re=$re+1;
+   $offer ='offer'.$re.'name';
+ $offername= ${$offer};
+
+   }
+   ?&gt;
+
+
+    
+
+        php table forms

@@ -1,0 +1,17 @@
+What is res://*/ in .net?
+
+
+        I came across this snippet of code on MSDN:
+
+entityBuilder.Metadata = @"res://*/AdventureWorksModel.csdl|
+                            res://*/AdventureWorksModel.ssdl|
+                            res://*/AdventureWorksModel.msl";
+
+
+What does the res://*/ mean and how does it work? I think it has to do with resource files, but I am not sure.
+
+Google is no help because of the punctuation.
+
+    
+
+        .net

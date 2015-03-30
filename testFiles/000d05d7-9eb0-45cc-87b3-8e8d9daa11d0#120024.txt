@@ -1,0 +1,8 @@
+Tool to monitor HTTP, TCP, etc. Web Service traffic [closed]
+
+
+        What's the best tool that you use to monitor Web Service, SOAP, WCF, etc. traffic that's coming and going on the wire? I have seen some tools that made with Java but they seem to be a little crappy. What I want is a tool that sits in the middle as a proxy and does port redirection (which should have configurable listen/redirect ports). Are there any tools work on Windows to do this?
+
+    
+
+        web-services http tcp monitoring

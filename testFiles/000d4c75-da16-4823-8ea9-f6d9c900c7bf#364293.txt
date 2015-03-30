@@ -1,0 +1,12 @@
+Free MySQL synchronization tool [closed]
+
+
+        does anybody know some free tool for synchronization MySQL database (data and structure) like in Navicat for Windows ?
+
+
+
+I'm using Structure and Data synchronization. Sometimes Data transfer. I was just wondering if there is not any software like this for free. Found only HeidiSQL (which looks perfect but work worse).
+
+    
+
+        mysql synchronization

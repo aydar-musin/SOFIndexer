@@ -1,0 +1,14 @@
+MySQL Trigger &amp; Stored Procedure Replication
+
+
+        Ok,I'm running a setup with a single master and a number of slaves. All writes go through the master and are replicated down to the slaves which are used strictly for reads. 
+
+Now I have a stored procedure (not function) which is called by a trigger on an insert. According to the MySQL docs, for replication triggers log the call to the trigger while stored procedures actually log the result of the stored procedure. 
+
+So my question is, when my trigger gets fired, will it replicate both the trigger and the results of the procedure that the trigger calls (resulting in the procedure effectively being run twice)? Or will it simply replicate the trigger have the slaves re-run the stored procedure on their own?
+
+Thanks
+
+    
+
+        mysql stored-procedures triggers

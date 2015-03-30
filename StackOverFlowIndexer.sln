@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackOverFlowIndexer", "StackOverFlowIndexer\StackOverFlowIndexer.csproj", "{8936D32C-7B2C-4357-AAD7-02F9C00DA977}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesIndexer", "FilesIndexer\FilesIndexer.csproj", "{CFA124AF-D67E-4B53-AC7B-878090AFA8B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{8936D32C-7B2C-4357-AAD7-02F9C00DA977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8936D32C-7B2C-4357-AAD7-02F9C00DA977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8936D32C-7B2C-4357-AAD7-02F9C00DA977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA124AF-D67E-4B53-AC7B-878090AFA8B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA124AF-D67E-4B53-AC7B-878090AFA8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA124AF-D67E-4B53-AC7B-878090AFA8B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA124AF-D67E-4B53-AC7B-878090AFA8B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

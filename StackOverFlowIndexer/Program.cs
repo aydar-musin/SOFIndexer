@@ -28,6 +28,8 @@ namespace StackOverFlowIndexer
 
                         try
                         {
+                            Thread.Sleep(300);
+
                             string text = wclient.DownloadString("http://stackoverflow.com/questions/" + number);
 
                             HtmlDocument doc = new HtmlDocument();

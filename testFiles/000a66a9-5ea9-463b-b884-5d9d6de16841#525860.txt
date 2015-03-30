@@ -1,0 +1,14 @@
+Logoff script to change user
+
+
+        Using Windows 2003, I'm look for a way to create a "logoff script" that will continue with the current logoff then immediately login another user.  So, "UserA" logs off.  Script fires to login "UserB".  
+
+This is part of an application upgrade for a computer where we have written the 'shell'; similar to a kiosk application.  For the upgrade we need to logon as 'Adminstrator' then, when the upgrade has completed, logoff 'Administrator' and logon as 'sample_user'.  We would like to accomplish this WITHOUT rebooting.
+
+Note, I do not want a script that will initiate the logoff (i.e. "shutdown").  I'm looking for a script that will run upon the user logging off (set via Group Policies).  As above, the script should log a different user on.
+
+Thanks.
+
+    
+
+        scripting windows-server-2003 logoff
