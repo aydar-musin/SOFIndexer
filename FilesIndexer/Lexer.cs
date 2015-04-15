@@ -17,16 +17,10 @@ namespace FilesIndexer
             {
                 string s = sr.ReadToEnd();
 
-                s = s.Replace("'", " ' ").Replace("\"", " \" ").Replace(":", " : ").Replace(";", " ; ").Replace("^", " ^ ")
-                    .Replace(",", " , ").Replace("~", " ~ ").Replace("/", " / ")
-                    .Replace("*", " * ").Replace("+", " + ").Replace("-", " - ").Replace("=", " = ").Replace("<", " < ")
-                    .Replace(">", " > ").Replace("%", " % ")
-                    .Replace("!", " ! ").Replace("(", " ( ").Replace(")", " ) ").Replace("[", " [ ").Replace("]", " ] ")
-                    .Replace("|", " | ").Replace("&", " & ").Replace("#", " # ").Replace("@", " @ ").Replace("$", " $ ")
-                    .Replace("?", " ? ").Replace(".", " . ").Replace("`", " ` ");
+                s = s.Replace("%", " % ").Replace("#", " # ").Replace("@", " @ ").Replace("$", " $ ");
               
 
-                char[] delimiterChars = { '\n', '\r', ' ', '\t', '\v' };
+                char[] delimiterChars = { '\n', '\r', ' ', '\t', '\v','-','.',';',':','`','?','!','|','\"','\\','(',')','*','=','+','\'','~','>','<','&',']','[','^'};
                 string[] lines = s.Split(delimiterChars);
                 List<string> filledLines = new List<string>();
 
@@ -36,11 +30,6 @@ namespace FilesIndexer
                     {
                         filledLines.Add(line);
                     }
-                }
-
-                foreach (string line in filledLines)
-                {
-                    Console.WriteLine(line);
                 }
 
                 return filledLines.ToArray();

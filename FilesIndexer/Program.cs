@@ -11,14 +11,21 @@ namespace FilesIndexer
     {
         static void Main(string[] args)
         {
-            var tokens = GetTokens("test.txt");
+            Indexer d = new Indexer();
+            var files = Directory.GetFiles("files");
+            foreach (var file in files)
+            {
+                d.ProcessFile(file);
+                Console.WriteLine(file+" processed");
+            }
             Console.ReadKey();
+            "1test1".Replace("1", " 1 ");
 
         }
         static string[] GetTokens(string fileName)
         {
             var text=File.ReadAllText(fileName);
-            return text.Split(' ','.','!','?',',','\n','&','#','\t','\r','\v').Where(s=>!string.IsNullOrEmpty(s)).ToArray();
+            return text.Split(' ','.','!','?',',','\n','&','#','\t','\r','\v','=').Where(s=>!string.IsNullOrEmpty(s)).ToArray();
         }
     }
     
