@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Data.SqlClient;
+using System.Net;
 
 namespace FilesIndexer
 {
@@ -23,7 +24,7 @@ namespace FilesIndexer
         {
             BagOfWords = new Dictionary<string, int>();
             DocId = GetDocIdFromFileName(fileName);
-
+            
             Lexer lexer = new Lexer(fileName);
             var tokens = lexer.getTokens().Select(t=>t.Trim().ToLower()).ToArray();
             

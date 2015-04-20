@@ -15,6 +15,7 @@ namespace StackOverFlowIndexer
     {
         static void Main(string[] args)
         {
+            
             int number = Convert.ToInt32(ConfigurationSettings.AppSettings["LastNumber"]);
 
             if (!Directory.Exists("files"))
@@ -63,8 +64,6 @@ namespace StackOverFlowIndexer
                     }
                 });
 
-            Task.Factory.StartNew(d_action);
-            Task.Factory.StartNew(d_action);
             Task.Factory.StartNew(d_action);
 
             Console.SetCursorPosition(0,2);

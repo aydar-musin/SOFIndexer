@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.IO;
 
 namespace FilesIndexer
 {
@@ -16,11 +18,11 @@ namespace FilesIndexer
             using (System.IO.StreamReader sr = System.IO.File.OpenText(fileName))
             {
                 string s = sr.ReadToEnd();
+                s = WebUtility.HtmlDecode(s);
 
                 s = s.Replace("%", " % ").Replace("#", " # ").Replace("@", " @ ").Replace("$", " $ ");
-              
 
-                char[] delimiterChars = { '\n', '\r', ' ', '\t', '\v','-','.',';',':','`','?','!','|','\"','\\','(',')','*','=','+','\'','~','>','<','&',']','[','^'};
+                char[] delimiterChars = { '\n', '\r', ' ', '\t', '\v','-','.',';',':','`','?','!','|','\"','\\','(',')','*','=','+','\'','~','>','<','&',']','[','^',','};
                 string[] lines = s.Split(delimiterChars);
                 List<string> filledLines = new List<string>();
 

@@ -13,6 +13,7 @@ namespace FilesIndexer
         {
             Indexer d = new Indexer();
             var files = Directory.GetFiles("files");
+
             foreach (var file in files)
             {
                 d.ProcessFile(file);
@@ -20,7 +21,6 @@ namespace FilesIndexer
             }
             Console.ReadKey();
             "1test1".Replace("1", " 1 ");
-
         }
         static string[] GetTokens(string fileName)
         {
