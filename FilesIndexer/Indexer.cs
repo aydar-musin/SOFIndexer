@@ -40,10 +40,10 @@ namespace FilesIndexer
                     {
                         term += tokens[i];
                         i++;
-                        ProcessToken(tokens[i]);
+                        ProcessTerm(tokens[i]);
                     }
 
-                    ProcessToken(term);//add this expression to terms list
+                    ProcessTerm(term);//add this expression to terms list
                 }
                 else if (token == "\'")
                 {
@@ -53,21 +53,21 @@ namespace FilesIndexer
                     {
                         term += tokens[i];
                         i++;
-                        ProcessToken(tokens[i]);
+                        ProcessTerm(tokens[i]);
                     }
 
-                    ProcessToken(term);//add this expression to terms list
+                    ProcessTerm(term);//add this expression to terms list
                 }
                 else
                 {
                     //do normalization
 
-                    ProcessToken(token);
+                    ProcessTerm(token);
                 }
             }
             InsertBagOfWords();
         }
-        public void ProcessToken(string term)//
+        public void ProcessTerm(string term)//
         {
             if(!StopWords.Contains(term))
             {
