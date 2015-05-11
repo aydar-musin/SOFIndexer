@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HomePage</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Search","Home",FormMethod.Get))
+        {
+            <input  name="query" type="text"/>
+            <input type="submit" value="поиск" />
+        }
+    </div>
+</body>
+</html>

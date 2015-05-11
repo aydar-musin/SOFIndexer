@@ -79,7 +79,7 @@ namespace FilesIndexer
         }
         public void InsertBagOfWords()
         {
-            SqlConnection sqlConnection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=SOFIndex;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
+            SqlConnection sqlConnection = new SqlConnection(@"Data Source=tcp:178.217.40.162;Initial Catalog=SOFIndex;Integrated Security=False;User ID=arbitrclient;Password=159753;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
             sqlConnection.Open();
 
             foreach (var term in BagOfWords)

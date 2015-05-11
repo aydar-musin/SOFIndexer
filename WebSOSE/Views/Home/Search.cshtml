@@ -1,0 +1,22 @@
+﻿@model IEnumerable<int>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Results</title>
+</head>
+<body>
+    <span>Results on query: <strong>@Request.Params[0]</strong></span>
+    <div>
+        @foreach (var result in Model)
+        {
+            <div style="margin-top:10px;margin-left:10px;">
+                <a href="http://stackoverflow.com/questions/@result" target="_blank">@result</a>
+                
+            </div>
+        }
+    </div>
+</body>
+</html>

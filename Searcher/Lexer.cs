@@ -23,11 +23,11 @@ namespace Searcher
                 {
                     if (token.Trim().Length > 0)
                     {
-                        tokens.Add(line.Trim());
+                        tokens.Add(token.Trim());
                     }
                 }
 
-                return filledLines.ToArray();
+                return tokens.ToArray();
         }
     }
 }

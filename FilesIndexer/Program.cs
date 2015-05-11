@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace FilesIndexer
 {
@@ -11,16 +12,28 @@ namespace FilesIndexer
     {
         static void Main(string[] args)
         {
-            Indexer d = new Indexer();
-            var files = Directory.GetFiles("files");
+            
+            Console.WriteLine("Files directory: ");
+            string directory = Console.ReadLine();
 
-            foreach (var file in files)
+            int count = 0;
+
+            foreach (var dir in Directory.GetDirectories(directory))
             {
-                d.ProcessFile(file);
-                Console.WriteLine(file+" processed");
+                var files = Directory.GetFiles(dir);
+
+                files.AsParallel().WithDegreeOfParallelism(10).ForAll((f) =>
+                    {
+                            Indexer indexer = new Indexer();
+                            indexer.ProcessFile(f);
+                            Console.WriteLine(++count+" "+Thread.CurrentThread.ManagedThreadId);
+                        
+                    });
             }
+
+            Console.WriteLine("Complete!");
             Console.ReadKey();
-            "1test1".Replace("1", " 1 ");
+            
         }
         static string[] GetTokens(string fileName)
         {
