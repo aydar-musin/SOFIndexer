@@ -9,7 +9,7 @@ namespace df_calculator
 {
     class Program
     {
-        static string connectionString = @"Data Source=tcp:178.217.40.162;Initial Catalog=SOFIndex;Integrated Security=False;User ID=arbitrclient;Password=159753;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+        static string connectionString =@"Data Source=.\SQLEXPRESS;Initial Catalog=SO_SE;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
         static void Main(string[] args)
         {
             Console.WriteLine("Term identifiactors recieving...");

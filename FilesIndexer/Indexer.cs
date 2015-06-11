@@ -14,8 +14,10 @@ namespace FilesIndexer
         public List<string> Terms;
         private List<string> StopWords;
         private int DocId;
-
         private Dictionary<string,int> BagOfWords;
+
+        private string ConnectionString =@"Data Source=.\SQLEXPRESS;Initial Catalog=SO_SE;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+
         public Indexer()
         {
             StopWords = File.ReadAllLines("StopWords.txt").Select(s => s.Trim()).ToList();
@@ -79,20 +81,28 @@ namespace FilesIndexer
         }
         public void InsertBagOfWords()
         {
-            SqlConnection sqlConnection = new SqlConnection(@"Data Source=tcp:178.217.40.162;Initial Catalog=SOFIndex;Integrated Security=False;User ID=arbitrclient;Password=159753;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
+            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
 
             foreach (var term in BagOfWords)
             {
-                SqlCommand cmd = new SqlCommand() {
-                    Connection=sqlConnection,
-                    CommandText = "exec InsertPosting @Term=@termp,@DocId=@DocIdp,@tf=@tfp"
-                };
-                cmd.Parameters.AddWithValue("termp", term.Key);
-                cmd.Parameters.AddWithValue("DocIdp",DocId);
-                cmd.Parameters.AddWithValue("tfp",term.Value);
+                try
+                {
+                    SqlCommand cmd = new SqlCommand()
+                    {
+                        Connection = sqlConnection,
+                        CommandText = "exec InsertPosting @Term=@termp,@DocId=@DocIdp,@tf=@tfp"
+                    };
+                    cmd.Parameters.AddWithValue("termp", term.Key);
+                    cmd.Parameters.AddWithValue("DocIdp", DocId);
+                    cmd.Parameters.AddWithValue("tfp", term.Value);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
             sqlConnection.Close();
             BagOfWords = null;

@@ -15,8 +15,8 @@ namespace Searcher
         //Bag of words for query
         public Dictionary<string,int> BagOfWords;
         public List<string> StopWords;
-        private int N=10000;
-        private string connectionString = "";
+        private int N=1000000;
+        private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=SOFIndex;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
 
         public QueryProcessor()
         {
@@ -24,7 +24,7 @@ namespace Searcher
             var lines = File.ReadAllLines(@"C:\Users\Айдар\SkyDrive\Учеба\innopolis\IR\SOFIndexer\StopWords.txt").Select(l => l.Trim());
             StopWords=lines.ToList();
         }
-        public Dictionary<int, double> ProcessQuery(string query)
+        public List<QueryResult> ProcessQuery(string query)
         {
             BagOfWords = new Dictionary<string, int>();
 
@@ -67,8 +67,10 @@ namespace Searcher
                     ProcessTerm(token);
                 }
             }
-            var result = Search();
-            return result;
+            var search_result = Search();
+            var rank_result = RankResults(search_result);
+
+            return rank_result;
         }
         private void ProcessTerm(string term)
         {
@@ -80,23 +82,32 @@ namespace Searcher
                     BagOfWords.Add(term, 1);
             }
         }
-        private Dictionary<int, double> Search()
+        private Dictionary<int,QueryResult> Search()
         {
-            Dictionary<int, double> vectors = new Dictionary<int, double>();
+            Dictionary<int, QueryResult> vectors = new Dictionary<int, QueryResult>();
 
-            SqlConnection connection = new SqlConnection(@"Data Source=tcp:178.217.40.162;Initial Catalog=SOFIndex;Integrated Security=False;User ID=arbitrclient;Password=159753;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
+            SqlConnection connection = new SqlConnection(this.connectionString);
             connection.Open();
 
             foreach (var term in BagOfWords)
             {
-                SqlCommand cmd = new SqlCommand(@"declare @termId int
-                                                  declare @df int
-                                                set @termId=(select Id from Terms where term=@term and DocumentFrequency is not null)
-                                                IF @termId!=0
-                                                BEGIN
-	                                                set @df=(select DocumentFrequency from Terms where Id=@termId)
-	                                                select @termId,@df,DocId, termFrequency from Postings where TermId=@termId
-                                                END", connection);
+                SqlCommand cmd = new SqlCommand(
+@"
+declare @termId int
+declare @df int
+set @termId=(select top 1 Id from Terms where term=@term)
+IF @termId!=0
+BEGIN
+	set @df=(select DocumentFrequency from Terms where Id=@termId)
+	
+	IF @df is null
+	BEGIN
+		set @df=(select count(TermId) from Postings where TermId=@termId)
+		update Terms set DocumentFrequency=@df where Id=@termId
+	END
+
+	select @termId,@df,DocId, termFrequency from Postings where TermId=@termId
+END", connection);
 
                 cmd.Parameters.AddWithValue("term", term.Key);
 
@@ -108,19 +119,79 @@ namespace Searcher
                         int df = reader.GetInt32(1);
                         int DocId = reader.GetInt32(2);
                         int tf = reader.GetInt32(3);
-                        double tfidf = (1 + Math.Log10((double)tf)) * Math.Log10(N / df);
+
+                        double tfidf = (1 + Math.Log10((double)tf)) * Math.Log10(N / df);//tfidf calculating
 
                         if (vectors.ContainsKey(DocId))
-                            vectors[DocId] += tfidf;
+                        {
+                            var new_res = (QueryResult) vectors[DocId].Clone();
+                            new_res.ContainsWords++;
+                            new_res.TfiDf += tfidf;
+
+                            vectors[DocId] = new_res;
+                        }
                         else
                         {
-                            vectors.Add(DocId, tfidf);
+                            vectors.Add(DocId, new QueryResult() { DocId=DocId, TfiDf=tfidf, ContainsWords=1 });
                         }
                     }
                 } 
             }
             connection.Close();
+
+
             return vectors;
+        }
+
+        private List<QueryResult> RankResults(Dictionary<int,QueryResult> input)
+        {
+            var ordered_input = input.OrderByDescending(g => g.Value.ContainsWords);
+
+            List<List<QueryResult>> tempGroups = new List<List<QueryResult>>();
+
+            List<QueryResult> group = new List<QueryResult>();
+            int last = -1;
+            foreach (var q in ordered_input)
+            {
+                if (q.Value.ContainsWords == last||last==-1)
+                    group.Add(q.Value);
+                else
+                {
+                    tempGroups.Add(group);
+                    group = new List<QueryResult>();
+                    group.Add(q.Value);
+                }
+                last = q.Value.ContainsWords;
+            }
+
+            List<QueryResult> result = new List<QueryResult>();
+            if (tempGroups.Count == 0 && group.Count != 0)
+                tempGroups.Add(group);
+
+            foreach (var g in tempGroups)
+                result.AddRange(g.OrderByDescending(q => q.TfiDf));
+
+            return result;
+
+        }
+
+    }
+
+    public class QueryResult:ICloneable
+    {
+        public int DocId;
+        public double TfiDf;
+        public int ContainsWords;
+
+
+        public object Clone()
+        {
+            return new QueryResult() 
+            {
+                DocId=this.DocId,
+                TfiDf=this.TfiDf,
+                ContainsWords=this.ContainsWords
+            };
         }
     }
 }

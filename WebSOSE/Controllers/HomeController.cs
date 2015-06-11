@@ -19,10 +19,19 @@ namespace WebSOSE.Controllers
 
         public ActionResult Search(string query)
         {
-            Searcher.QueryProcessor queryP = new QueryProcessor();
-            var result = queryP.ProcessQuery(query);
+            if(string.IsNullOrEmpty(query))
+            {
+                return View("Search",null);
+            }
+            else
+            {
+                Searcher.QueryProcessor queryP = new QueryProcessor();
+                var result = queryP.ProcessQuery(query);
+                if (result.Count > 100)
+                    result = result.GetRange(0, 100);
 
-            return View(result.OrderByDescending(pair=>pair.Value).Select(pair=>pair.Key));
+                return View(result);
+            }
         }
     }
 }

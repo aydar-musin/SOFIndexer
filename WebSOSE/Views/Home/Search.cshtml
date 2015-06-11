@@ -1,22 +1,129 @@
-﻿@model IEnumerable<int>
+﻿@model IEnumerable<Searcher.QueryResult>
 
-<!DOCTYPE html>
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="sofse.css" type="text/css" />
+<meta name="keywords" content=""/>
+<meta name="description" content=""/> 
+<title>SOF Search Engine</title>
 </head>
 <body>
-    <span>Results on query: <strong>@Request.Params[0]</strong></span>
-    <div>
-        @foreach (var result in Model)
+
+<div id ="telo">
+
+<div id ="header">
+
+
+<div id ="brand">
+SOF SE
+</div id ="brand">
+
+
+
+
+<div id ="stroka_knopka">
+<form method="get" action="/Home/Search/">
+<input  class="search_sp" type="text" name="query" value="@(Model!=null? @Request.Params[0]:"")" maxlength="180">
+<input  class="search_btn" type="submit"  value="SEARCH">
+</form>
+</div id ="stroka_knopka">
+
+</div id ="header">
+
+<div id ="output">
+
+
+    @if(Model!=null)
+    {
+        foreach (var result in Model)
         {
-            <div style="margin-top:10px;margin-left:10px;">
-                <a href="http://stackoverflow.com/questions/@result" target="_blank">@result</a>
-                
+            <div class ="result">
+                <a href="http://stackoverflow.com/questions/@result.DocId" target="_blank">@result.DocId</a>
+                <br/>
+                <span>Contains words: @result.ContainsWords</span>
+                <br/>
+                <span>TFIDF: @result.TfiDf</span>
             </div>
         }
-    </div>
+
+    }
+
+</div>
+
+
+</div>
+    <style type="text/css">
+        body {
+background:#f0f0ff; /* ������ ����� ����*/
+}
+
+
+#telo {
+height: 100%;
+width: 100%;
+}
+
+
+#header {
+width: 100%;
+height: 60px;
+border-bottom: 2px groove #8888ff;
+}
+
+
+#output {
+width: 100%;
+height: 100%;
+
+
+}
+
+#brand {
+float: left;
+font: 30pt 'Arial';
+font-weight: bold;
+color: #22cc88;
+}
+
+#stroka_knopka {
+width: 520px;
+height: 60px;
+margin: auto;
+}
+
+.search_sp {
+float: left;
+width: 80%;
+height: 25px;
+font: 14pt 'Myriad Pro';
+border-radius: 5px;
+}
+
+.search_btn {
+float: left;
+width: 18%;
+height: 28px;
+margin-left: 1%;
+font: 12pt 'Arial';
+font-weight: bold;
+color: #115533;
+border-radius: 4px;
+}
+
+
+.result {
+float: left;
+width: 100%;
+height: 60px;
+margin: 5px;
+font: Italic 12pt 'Arial';
+border: 1px solid #33aa88;
+
+}
+
+    </style>
 </body>
+
 </html>
